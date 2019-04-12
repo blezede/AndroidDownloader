@@ -2,9 +2,8 @@
 # AndroidDownloader
 Android 多任务文件下载器，支持断点下载
 
-![](https://github.com/blezede/AndroidDownloader/blob/master/AppDownloader/snapshot/screenshot1.png?width=300)
-
-![](https://github.com/blezede/AndroidDownloader/blob/master/AppDownloader/snapshot/screenshot2.png?width=300)
+<img src="https://github.com/blezede/AndroidDownloader/blob/master/AppDownloader/snapshot/screenshot1.png" width="40%" height="40%">
+<img src="https://github.com/blezede/AndroidDownloader/blob/master/AppDownloader/snapshot/screenshot2.png" width="40%" height="40%">
 
 ## How to use
 Step 1. Add the JitPack repository to your build file

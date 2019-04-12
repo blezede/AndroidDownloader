@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AppDownloader</string>
+    <string name="start">开始下载</string>
+    <string name="wait">正在等待</string>
+    <string name="pause">暂    停</string>
+    <string name="resume">继续下载</string>
+    <string name="cancel">取    消</string>
+    <string name= "canceled">已经取消</string>
+    <string name="failed">失    败</string>
+    <string name="success">成    功</string>
+</resources>

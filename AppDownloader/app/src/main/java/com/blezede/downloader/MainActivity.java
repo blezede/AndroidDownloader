@@ -1,19 +1,16 @@
 package com.blezede.downloader;
 
 import android.Manifest;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,12 +19,11 @@ import com.blezede.downloader.interfaces.Observer;
 import com.blezede.downloader.manager.DownLoadManager;
 import com.blezede.downloader.utils.Common;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity implements Observer {
+
     private static final String URL2 = "http://m.down.sandai.net/MobileThunder/Android_5.34.2.4700/XLWXguanwang.apk";
     private static final String URL1 = "http://s1.music.126.net/download/android/CloudMusic_official_4.0.0_179175.apk";
     private static final String URL3 = "https://qd.myapp.com/myapp/qqteam/AndroidQQ/mobileqq_android.apk";
@@ -35,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
     private static final String URL5 = "http://gdown.baidu.com/data/wisegame/ff4efd277de65cb8/weibo_3854.apk";
     private static final String URL6 = "http://download.anfensi.com/apk/bilibiliapp_anfensi.com.apk";
     private static final String URL7 = "http://gdown.baidu.com/data/wisegame/a6486d3de30f27e4/aiqiyijisuban_81000.apk";
+    private static final String URL8 = "https://pdds-cdn.uc.cn/3-0/UCBrowser/1904/8b94c513a237702d7a326cf9ff62d17e/UCBrowser_V12.3.8.1018_android_pf145_(Build190409102211).apk?auth_key=1555654505-0-0-f9d0b9544d5332659c6cd99334edb9d4&SESSID=e3f8397b7d1c2791ac23bdb639cb5ba9";
     List<TaskModel> list = new ArrayList<>();
     RecyclerView mRecyclerView;
     IDownLoadManager mDownLoadManager;
@@ -53,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         list.add(new TaskModel(URL5));
         list.add(new TaskModel(URL6));
         list.add(new TaskModel(URL7));
+        list.add(new TaskModel(URL8));
         mRecyclerView = findViewById(R.id.recycler_view);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -72,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
     public void onWait(String url) {
         int position = getPosition(url);
         list.get(position).isDownLoading = false;
-        list.get(position).progress = 0;
         list.get(position).status = TaskModel.WAIT;
         mDownLoadAdapter.notifyItemChanged(position);
     }

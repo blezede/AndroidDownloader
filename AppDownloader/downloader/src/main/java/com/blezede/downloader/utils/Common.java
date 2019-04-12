@@ -1,5 +1,9 @@
 package com.blezede.downloader.utils;
 
+import android.net.Uri;
+
+import java.io.File;
+
 /**
  * com.blezede.downloader.utils
  * Time: 2019/4/12 10:49
@@ -44,5 +48,21 @@ public class Common {
             }
         }
         return sb.toString();
+    }
+
+    public static String getUrlQuery(String httpUrl) {
+        Uri uri = Uri.parse(httpUrl);
+        return uri.getQuery();
+    }
+
+    public static String getHttpUrlFileName(String httpUrl) {
+        Uri uri = Uri.parse(httpUrl);
+        String params = uri.getQuery();
+        if (params != null && params.length() > 0) {
+            String noParamsUrl = httpUrl.substring(0, httpUrl.lastIndexOf(params) - 1);
+            return noParamsUrl.substring(noParamsUrl.lastIndexOf(File.separator) + 1);
+        } else {
+            return httpUrl.substring(httpUrl.lastIndexOf(File.separator) + 1);
+        }
     }
 }

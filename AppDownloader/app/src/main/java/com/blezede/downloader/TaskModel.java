@@ -1,5 +1,7 @@
 package com.blezede.downloader;
 
+import com.blezede.downloader.utils.Common;
+
 /**
  * com.blezede.downloader
  * Time: 2019/4/10 15:39
@@ -40,6 +42,6 @@ public class TaskModel {
 
     public TaskModel(String url) {
         this.url = url;
-        this.name = url.substring(url.lastIndexOf("/")).replace("/", "");
+        this.name = Common.getHttpUrlFileName(url);
     }
 }

@@ -8,6 +8,7 @@ import com.blezede.downloader.interfaces.DownLoadListener;
 import com.blezede.downloader.interfaces.IDownLoadManager;
 import com.blezede.downloader.interfaces.Observer;
 import com.blezede.downloader.task.DownLoadTask;
+import com.blezede.downloader.utils.Common;
 
 import java.io.File;
 import java.util.HashMap;
@@ -84,8 +85,12 @@ public class DownLoadManager implements IDownLoadManager {
     public void cancel(String url) {
         if (!mTasks.containsKey(url)) {
             //已经暂停或未开始下载
-            String name = url.substring(url.lastIndexOf("/"));
-            File file = new File(mConfig.targetDir + name);
+            String name = Common.getHttpUrlFileName(url);
+            String targetDir = mConfig.targetDir;
+            if (targetDir.lastIndexOf(File.separator) != targetDir.length() - 1) {
+                targetDir = targetDir + File.separator;
+            }
+            File file = new File(targetDir + name);
             if (file.exists()) file.delete();
             if (mObserver != null) mObserver.onCancel(url);
             return;

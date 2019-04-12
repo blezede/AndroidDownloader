@@ -9,6 +9,7 @@ import android.util.Log;
 import com.blezede.downloader.config.Config;
 import com.blezede.downloader.constant.DownLoadStatus;
 import com.blezede.downloader.interfaces.DownLoadListener;
+import com.blezede.downloader.utils.Common;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,6 +45,8 @@ public class DownLoadTask implements Runnable, Handler.Callback {
 
     private String mTargetDir;
 
+    private String mTargetFileName;
+
     public DownLoadTask(@NonNull String url, DownLoadListener listener, @NonNull Config config) {
         this.mUrl = url;
         this.mDownLoadListener = listener;
@@ -52,16 +55,25 @@ public class DownLoadTask implements Runnable, Handler.Callback {
         publishStatus(DownLoadStatus.STATUS_WAIT);
         if (this.mUrl.length() == 0) {
             publishStatus(DownLoadStatus.STATUS_FAILED);
+            return;
+        }
+        if (mTargetDir == null || mTargetDir.length() == 0) {
+            publishStatus(DownLoadStatus.STATUS_FAILED);
+            return;
+        }
+        mTargetFileName = Common.getHttpUrlFileName(mUrl);
+        if (mTargetDir.lastIndexOf(File.separator) != mTargetDir.length() - 1) {
+            mTargetDir = mTargetDir + File.separator;
         }
     }
 
     @Override
     public void run() {
-        String name = mUrl.substring(mUrl.lastIndexOf("/"));
-
+        if (mCurrentStatus == DownLoadStatus.STATUS_FAILED) {
+            return;
+        }
         long downloadedLength = 0;
-        String directory = mTargetDir;
-        File file = new File(directory + name);
+        File file = new File(mTargetDir + mTargetFileName);
 
         //判断任务是开始还是取消
         if (mIsCancel) {

@@ -27,6 +27,7 @@ import okhttp3.OkHttpClient;
 public class DownLoadManager implements IDownLoadManager {
 
     private static final String TAG = "DownLoadManager";
+    public static boolean DEBUG = false;
     private Map<String, DownLoadTask> mTasks = new HashMap<>();
     private static IDownLoadManager sDownLoadManager;
     private Observer mObserver;
@@ -138,34 +139,44 @@ public class DownLoadManager implements IDownLoadManager {
             public void onSuccess(String url) {
                 mTasks.remove(url);
                 if (mObserver != null) mObserver.onSuccess(url);
-                Log.e(TAG, "onSuccess --> " + url);
+                if (DEBUG) {
+                    Log.d(TAG, "onSuccess --> " + url);
+                }
             }
 
             @Override
             public void onFailure(String url) {
                 mTasks.remove(url);
                 if (mObserver != null) mObserver.onFailure(url);
-                Log.e(TAG, "onFailure --> " + url);
+                if (DEBUG) {
+                    Log.d(TAG, "onFailure --> " + url);
+                }
             }
 
             @Override
             public void onPause(String url) {
                 mTasks.remove(url);
                 if (mObserver != null) mObserver.onPause(url);
-                Log.e(TAG, "onPause --> " + url);
+                if (DEBUG) {
+                    Log.d(TAG, "onPause --> " + url);
+                }
             }
 
             @Override
             public void onCancel(String url) {
                 mTasks.remove(url);
                 if (mObserver != null) mObserver.onCancel(url);
-                Log.e(TAG, "onCancel --> " + url);
+                if (DEBUG) {
+                    Log.d(TAG, "onCancel --> " + url);
+                }
             }
 
             @Override
             public void onDownloading(String url, int progress, long totalLength) {
                 if (mObserver != null) mObserver.onDownloading(url, progress, totalLength);
-                Log.e(TAG, "onDownloading --> " + url + "---" + progress + "---" + totalLength);
+                if (DEBUG) {
+                    Log.d(TAG, "onDownloading --> " + url + "---" + progress + "---" + totalLength);
+                }
             }
         }, mConfig);
         mTasks.put(url, task);

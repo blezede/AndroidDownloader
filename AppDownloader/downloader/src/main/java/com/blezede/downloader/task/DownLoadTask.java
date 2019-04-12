@@ -1,7 +1,5 @@
 package com.blezede.downloader.task;
 
-import android.content.Context;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -11,8 +9,6 @@ import android.util.Log;
 import com.blezede.downloader.config.Config;
 import com.blezede.downloader.constant.DownLoadStatus;
 import com.blezede.downloader.interfaces.DownLoadListener;
-import com.blezede.downloader.manager.DownLoadManager;
-import com.blezede.downloader.utils.NetWorkUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -250,7 +246,7 @@ public class DownLoadTask implements Runnable, Handler.Callback {
             case DownLoadStatus.STATUS_RUNNING:
                 mIsDownLoading = true;
                 if (mDownLoadListener != null) {
-                    mDownLoadListener.onDownloading(mUrl, (int) msg.arg1, mContentLength);
+                    mDownLoadListener.onDownloading(mUrl, msg.arg1, mContentLength);
                 }
                 break;
             case DownLoadStatus.STATUS_FAILED:
